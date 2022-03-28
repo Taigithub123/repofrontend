@@ -9,14 +9,18 @@ import {
 } from "reactstrap";
 
 const Blog = (props) => {
+  const mystyle = {
+    position: 'relative',
+    left: '50px',
+
+  };
   return (
     <Card>
       <CardImg alt="Card image cap" src={props.image} height="300" />
       <CardBody className="p-4">
-        <CardTitle tag="h5">{props.title}</CardTitle>
-        <CardSubtitle>{props.subtitle}</CardSubtitle>
-        <CardText className="mt-3">{props.text}</CardText>
-        <Button color="primary">Đặt Hàng</Button>
+        <CardTitle tag="h5">Tên: {props.title}</CardTitle>
+        <CardText className="mt-3">Giá: {props.text}</CardText>
+        <Button style={mystyle} color="primary">Đặt Hàng</Button>
       </CardBody>
     </Card>
   );

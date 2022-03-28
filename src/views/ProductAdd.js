@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Card,
   Row,
@@ -12,6 +13,7 @@ import {
   Label,
   Input,
 } from "reactstrap";
+import { HashRouter } from "react-router-dom";
 
 const ProductAdd = (props) => {
   const [name, setName] = useState("");
@@ -20,6 +22,7 @@ const ProductAdd = (props) => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [images, setImage] = useState(null);
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(name, categoryId, description, price, images);
@@ -40,7 +43,10 @@ const ProductAdd = (props) => {
     };
     getCategory();
   }, []);
+  const handleCancel = () => {
+    setOpen(false);
 
+  }
   return (
     <Row>
       <Col>
@@ -107,8 +113,10 @@ const ProductAdd = (props) => {
                   onChange={(e) => setImage(e.target.files[0])}
                 />
               </FormGroup>
-
               <Button type="submit">Nhập</Button>
+              <Button onClick={handleCancel} className="btn" color="primary">
+                Cancel
+              </Button>
             </Form>
           </CardBody>
         </Card>
