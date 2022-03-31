@@ -10,6 +10,7 @@ const Home = lazy(() => import("../views/home/Home.js"));
 const Starter = lazy(() => import("../views/Starter.js"));
 const Product = lazy(() => import("../views/Product.js"));
 const ProductAdd = lazy(() => import("../views/ProductAdd.js"));
+// const ProductDetail = lazy(() => import("../views/home/ProductDetail.js"));
 
 /*****Routes******/
 
@@ -18,6 +19,7 @@ const ThemeRoutes = [
     path: "/",
     element: <HomeLayout />,
     children: [{ path: "", element: <Home /> }],
+    // { path: "product/:id", exact: true, element: <ProductDetail /> },
   },
   {
     path: "/admin",
