@@ -11,6 +11,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Breadcrumb, BreadcrumbItem,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import ProductAdd from "../../views/ProductAdd";
@@ -54,16 +55,20 @@ const ProductTables = () => {
                 Tất cả sản phẩm có trong cửa hàng
               </CardSubtitle>
 
-              <Button onClick={navigateToAdd} className="btn" color="primary">
-                Thêm Sản Phẩm
-              </Button>
+              <Breadcrumb >
+                <BreadcrumbItem><a href="/admin">Dashboard</a></BreadcrumbItem>
+                <BreadcrumbItem active>Product</BreadcrumbItem>
+              </Breadcrumb>
+
             </div>
+            <Button onClick={navigateToAdd} className="btn" color="primary" >
+              Thêm
+            </Button>
             <Table className="no-wrap mt-3 align-middle" responsive borderless>
               <thead>
                 <tr>
                   <th>Tên Sản Phẩm</th>
                   <th>Loại Sản Phẩm</th>
-                  <th>Mô Tả</th>
                   <th>Giá Tiền</th>
                   <th>Hình Ảnh</th>
                   <th>Thao Tác</th>
@@ -74,7 +79,6 @@ const ProductTables = () => {
                   <tr key={index} className="border-top">
                     <td>{item.title}</td>
                     <td>{item.category?.name}</td>
-                    <td>{item.description}</td>
                     <td>{item.price}</td>
                     <td>
                       <img
@@ -90,11 +94,12 @@ const ProductTables = () => {
                           setCurrentProduct(item);
                         }}
                         type="button"
-                        class="btn btn-success"
+                        class="btn btn-warning"
                       >
                         Sửa
                       </button>
                       <button
+                        style={{ marginLeft: "5px" }}
                         onClick={() => {
                           setOpenMDelete(true);
                           setDeleteId(item.id);
@@ -121,7 +126,7 @@ const ProductTables = () => {
       </div>
       <Modal isOpen={openMDelete} toggle={() => setOpenMDelete(false)}>
         <ModalHeader toggle={() => setOpenMDelete(false)}>Delete ?</ModalHeader>
-        <ModalBody>Do you want delete this product?</ModalBody>
+        <ModalBody>Bạn có muốn xóa sản phẩm này không?</ModalBody>
         <ModalFooter>
           <Button color="danger" onClick={() => deleteProduct(deleteId)}>
             Delete
