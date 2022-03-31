@@ -43,10 +43,7 @@ const ProductAdd = (props) => {
     };
     getCategory();
   }, []);
-  const handleCancel = () => {
-    setOpen(false);
 
-  }
   return (
     <Row>
       <Col>
@@ -114,9 +111,9 @@ const ProductAdd = (props) => {
                 />
               </FormGroup>
               <Button type="submit">Nhập</Button>
-              <Button onClick={handleCancel} className="btn" color="primary">
+              {/* <Button onClick={handleCancel} className="btn" color="primary">
                 Cancel
-              </Button>
+              </Button> */}
             </Form>
           </CardBody>
         </Card>
