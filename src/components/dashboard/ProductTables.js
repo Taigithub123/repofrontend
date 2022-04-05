@@ -10,14 +10,19 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
+  ModalFooter,
+  Breadcrumb, BreadcrumbItem,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import ProductAdd from "../../views/ProductAdd";
 
 const ProductTables = () => {
   const [open, setOpen] = useState(false);
+  const [openMDelete, setOpenMDelete] = useState(false);
+  const [deleteId, setDeleteId] = useState(0);
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [currentProduct, setCurrentProduct] = useState({});
   const fetchData = async () => {
     const { data } = await axios.get("/api/products");
     setProducts(data);
@@ -33,64 +38,103 @@ const ProductTables = () => {
     setOpen(false);
     fetchData();
   };
+  const deleteProduct = async () => {
+    const { data } = await axios.delete("/api/products/" + deleteId);
+    console.log(data);
+    fetchData();
+    setOpenMDelete(false);
+  };
   return (
-    <div>
-      <Card>
-        <CardBody>
-          <CardTitle tag="h5">Danh Sách Sản Phẩm</CardTitle>
-          <div className="d-flex">
-            <CardSubtitle className="mb-2 text-muted me-auto" tag="h6">
-              Tất cả sản phẩm có trong cửa hàng
-            </CardSubtitle>
+    <>
+      <div>
+        <Card>
+          <CardBody>
+            <CardTitle tag="h5">Danh Sách Sản Phẩm</CardTitle>
+            <div className="d-flex">
+              <CardSubtitle className="mb-2 text-muted me-auto" tag="h6">
+                Tất cả sản phẩm có trong cửa hàng
+              </CardSubtitle>
 
-            <Button onClick={navigateToAdd} className="btn" color="primary">
+              <Breadcrumb >
+                <BreadcrumbItem><a href="/admin">Dashboard</a></BreadcrumbItem>
+                <BreadcrumbItem active>Product</BreadcrumbItem>
+              </Breadcrumb>
+
+            </div>
+            <Button onClick={navigateToAdd} className="btn" color="primary" >
               Thêm
             </Button>
-          </div>
-          <Table className="no-wrap mt-3 align-middle" responsive borderless>
-            <thead>
-              <tr>
-                <th>Tên Sản Phẩm</th>
-                <th>Loại Sản Phẩm</th>
-                <th>Giá Tiền</th>
-                <th>Hình Ảnh</th>
-                <th>Thao Tác</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((item, index) => (
-                <tr key={index} className="border-top">
-                  <td>{item.title}</td>
-                  <td>{item.category?.name}</td>
-                  <td>{item.price}</td>
-                  <td>
-                    <img
-                      src={"/upload/" + item.image}
-                      alt={item.title}
-                      height={50}
-                    ></img>
-                  </td>
-                  <td>
-                    <Button onClick={navigateToAdd} className="btn" color="warning" style={{ width: "100px" }}>
-                      Cập nhật
-                    </Button>
-                    <Button onClick={navigateToAdd} className="btn" color="danger" style={{ width: "100px" }}>
-                      Xóa
-                    </Button>
-                  </td>
+            <Table className="no-wrap mt-3 align-middle" responsive borderless>
+              <thead>
+                <tr>
+                  <th>Tên Sản Phẩm</th>
+                  <th>Loại Sản Phẩm</th>
+                  <th>Giá Tiền</th>
+                  <th>Hình Ảnh</th>
+                  <th>Thao Tác</th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
-        </CardBody>
-      </Card>
+              </thead>
+              <tbody>
+                {products.map((item, index) => (
+                  <tr key={index} className="border-top">
+                    <td>{item.title}</td>
+                    <td>{item.category?.name}</td>
+                    <td>{item.price}</td>
+                    <td>
+                      <img
+                        src={"/upload/" + item.image}
+                        alt={item.title}
+                        height={50}
+                      ></img>
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => {
+                          setOpen(true);
+                          setCurrentProduct(item);
+                        }}
+                        type="button"
+                        class="btn btn-warning"
+                      >
+                        Sửa
+                      </button>
+                      <button
+                        style={{ marginLeft: "5px" }}
+                        onClick={() => {
+                          setOpenMDelete(true);
+                          setDeleteId(item.id);
+                        }}
+                        type="button"
+                        class="btn btn-danger"
+                      >
+                        Xóa
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </CardBody>
+        </Card>
 
-      <Modal isOpen={open} toggle={() => setOpen(false)}>
-        <ModalBody>
-          <ProductAdd onClose={onClose} />
-        </ModalBody>
+        <Modal isOpen={open} toggle={() => setOpen(false)}>
+          <ModalBody>
+            <ProductAdd onClose={onClose} product={currentProduct} />
+
+          </ModalBody>
+        </Modal>
+      </div>
+      <Modal isOpen={openMDelete} toggle={() => setOpenMDelete(false)}>
+        <ModalHeader toggle={() => setOpenMDelete(false)}>Delete ?</ModalHeader>
+        <ModalBody>Bạn có muốn xóa sản phẩm này không?</ModalBody>
+        <ModalFooter>
+          <Button color="danger" onClick={() => deleteProduct(deleteId)}>
+            Delete
+          </Button>{" "}
+          <Button onClick={() => setOpenMDelete(false)}>Cancel</Button>
+        </ModalFooter>
       </Modal>
-    </div>
+    </>
   );
 };
 

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import {
   Card,
   Row,
@@ -13,16 +12,15 @@ import {
   Label,
   Input,
 } from "reactstrap";
-import { HashRouter } from "react-router-dom";
 
 const ProductAdd = (props) => {
-  const [name, setName] = useState("");
+  const product = props.product;
+  const [name, setName] = useState(product?.title);
   const [category, setCategory] = useState([]);
-  const [categoryId, setCategoryId] = useState(0);
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [images, setImage] = useState(null);
-  const navigate = useNavigate();
+  const [categoryId, setCategoryId] = useState(product?.category.id);
+  const [description, setDescription] = useState(product?.description);
+  const [price, setPrice] = useState(product?.price);
+  const [images, setImage] = useState(product?.image);
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(name, categoryId, description, price, images);
@@ -32,8 +30,17 @@ const ProductAdd = (props) => {
     formdata.append("description", description);
     formdata.append("price", price);
     formdata.append("image", images);
-    const { data } = await axios.post("/api/products", formdata);
-    console.log(data);
+    if (product) {
+      const { data } = await axios.post(
+        "/api/products/" + product?.id,
+        formdata
+      );
+      console.log(data);
+    } else {
+      const { data } = await axios.post("/api/products", formdata);
+      console.log(data);
+    }
+
     props.onClose();
   };
   useEffect(() => {
@@ -51,10 +58,12 @@ const ProductAdd = (props) => {
         {/* Card-1*/}
         {/* --------------------------------------------------------------------------------*/}
         <Card>
+
           <CardTitle tag="h6" className="border-bottom p-3 mb-0">
             <i className="bi bi-bell me-2"> </i>
-            Nhập Sản Phẩm
+            Form Nhập Sản Phẩm
           </CardTitle>
+
           <CardBody>
             <Form onSubmit={handleSubmit}>
               <FormGroup>
@@ -65,6 +74,7 @@ const ProductAdd = (props) => {
                   name="productName"
                   placeholder="Name"
                   type="text"
+                  value={name}
                 />
               </FormGroup>
               <FormGroup>
@@ -74,7 +84,9 @@ const ProductAdd = (props) => {
                   id="productCategory"
                   name="productCategory"
                   type="select"
+                  value={category.id}
                 >
+                  <option value="">Chọn Danh Mục</option>
                   {category.map(({ id, name }) => (
                     <option value={id}>{name}</option>
                   ))}
@@ -88,6 +100,7 @@ const ProductAdd = (props) => {
                   name="productDescription"
                   placeholder="Description"
                   type="text"
+                  value={description}
                 />
               </FormGroup>
               <FormGroup>
@@ -98,11 +111,16 @@ const ProductAdd = (props) => {
                   name="productPrice"
                   placeholder="Price"
                   type="number"
+                  value={price}
                 />
               </FormGroup>
 
               <FormGroup>
                 <Label for="productImage">Hình Ảnh</Label>
+                <img
+                  src={"/upload/" + images}
+                  height={50}
+                ></img>
                 <Input
                   id="productImage"
                   name="productImage"
@@ -110,10 +128,8 @@ const ProductAdd = (props) => {
                   onChange={(e) => setImage(e.target.files[0])}
                 />
               </FormGroup>
+
               <Button type="submit">Nhập</Button>
-              {/* <Button onClick={handleCancel} className="btn" color="primary">
-                Cancel
-              </Button> */}
             </Form>
           </CardBody>
         </Card>
