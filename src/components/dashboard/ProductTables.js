@@ -33,6 +33,7 @@ const ProductTables = () => {
   const navigateToAdd = () => {
     // navigate("/product/add");
     setOpen(true);
+    setCurrentProduct(null);
   };
   const onClose = () => {
     setOpen(false);

@@ -14,7 +14,7 @@ const navigation = [
   },
   {
     title: "Nhóm sản phẩm",
-    href: "/badges",
+    href: "category",
     icon: "bi bi-patch-check",
   },
   {

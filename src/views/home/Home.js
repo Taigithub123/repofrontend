@@ -2,7 +2,7 @@ import { Row, Col, Nav, NavItem, NavLink, Modal, ModalBody } from "reactstrap";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Product from "../../components/dashboard/Product";
-// import ProductDetail from "./ProductDetail";
+import ProductDetail from "./ProductDetail";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -94,7 +94,7 @@ const Home = () => {
           </Row>
         </Col>
       </Col>
-      {/* <Modal
+      <Modal
         style={{ maxWidth: "680px", marginTop: "100px" }}
         isOpen={open}
         toggle={() => setOpen(false)}
@@ -102,7 +102,7 @@ const Home = () => {
         <ModalBody>
           <ProductDetail id={activeProduct} />
         </ModalBody>
-      </Modal> */}
+      </Modal>
     </React.Fragment>
   );
 };

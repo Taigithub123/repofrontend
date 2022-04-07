@@ -16,9 +16,21 @@ import {
 import { Outlet } from "react-router-dom";
 import Logo from "./Logo";
 import { ReactComponent as LogoWhite } from "../assets/images/logos/adminprowhite.svg";
+import Bookingdrink from "../assets/images/logos/bookingdrink.png";
 import user1 from "../assets/images/users/user4.jpg";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { ImCart } from "react-icons/im";
 
 export default function HomeLayout() {
+  const [category, setCategory] = useState([]);
+  useEffect(() => {
+    const getCategory = async () => {
+      const { data } = await axios.get("/api/category");
+      setCategory(data);
+    };
+    getCategory();
+  }, []);
   const [isOpen, setIsOpen] = React.useState(false);
 
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
@@ -36,10 +48,13 @@ export default function HomeLayout() {
       <Navbar color="white" light expand="md" className="fix-header">
         <div className="d-flex align-items-center">
           <div className="d-lg-block d-none me-5 pe-3">
-            <Logo />
+            <img
+              style={{ width: "150px", height: "50px" }}
+              src={Bookingdrink}
+            ></img>
           </div>
           <NavbarBrand href="/">
-            <LogoWhite className="d-lg-none" />
+            <img src={Bookingdrink} className="d-lg-none" />
           </NavbarBrand>
           <Button
             color="primary"
@@ -67,11 +82,41 @@ export default function HomeLayout() {
         <Collapse navbar isOpen={isOpen}>
           <Nav className="me-auto" navbar>
             <NavItem>
-              <Link to="/starter" className="nav-link">
-                HOME
+              <Link to="/" className="nav-link">
+                Home
               </Link>
             </NavItem>
-
+            <Nav className="me-auto" navbar>
+              <UncontrolledDropdown inNavbar nav>
+                <DropdownToggle caret nav>
+                  Danh Mục Sản Phẩm
+                </DropdownToggle>
+                <DropdownMenu end>
+                  {category.map(({ id, name }) => (
+                    <DropdownItem>{name}</DropdownItem>
+                  ))}
+                </DropdownMenu>
+              </UncontrolledDropdown>
+              <NavItem>
+                <Link to="/starter" className="nav-link">
+                  Về Chúng Tôi
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/about" className="nav-link">
+                  Liên Hệ
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link to="" className="nav-link">
+                  <div className="cart-icon">
+                    <div>
+                      <ImCart>ImCart</ImCart>
+                    </div>
+                  </div>
+                </Link>
+              </NavItem>
+            </Nav>
             {/* <UncontrolledDropdown inNavbar nav>
               <DropdownToggle caret nav>
                 DD Menu

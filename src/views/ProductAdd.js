@@ -20,7 +20,7 @@ const ProductAdd = (props) => {
   const [categoryId, setCategoryId] = useState(product?.category.id);
   const [description, setDescription] = useState(product?.description);
   const [price, setPrice] = useState(product?.price);
-  const [images, setImage] = useState(product?.image);
+  const [images, setImage] = useState(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(name, categoryId, description, price, images);
@@ -86,7 +86,7 @@ const ProductAdd = (props) => {
                   type="select"
                   value={category.id}
                 >
-                  <option value="">Chọn Danh Mục</option>
+
                   {category.map(({ id, name }) => (
                     <option value={id}>{name}</option>
                   ))}
@@ -117,10 +117,10 @@ const ProductAdd = (props) => {
 
               <FormGroup>
                 <Label for="productImage">Hình Ảnh</Label>
-                <img
+                {/* <img
                   src={"/upload/" + images}
                   height={50}
-                ></img>
+                ></img> */}
                 <Input
                   id="productImage"
                   name="productImage"
