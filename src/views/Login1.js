@@ -32,7 +32,9 @@ class Login1 extends React.Component {
         }
         if (this.state.username && this.state.password) {
             this.setState({ isSubmitting: true });
+            console.log(this.state.username, this.state.password);
             let [success, body] = await LoginService.login(this.state.username, this.state.password);
+
             if (success) {
                 this.setState({ isSubmitting: false });
                 let token = body.data.access;
