@@ -63,7 +63,7 @@ function Category() {
             </Breadcrumb>
           </div>
           <Button
-            onClick={() => setOpen(true)}
+            onClick={() => { setOpen(true); setName("") }}
             className="btn"
             color="primary"
           >
@@ -132,10 +132,12 @@ function Category() {
           <Button onClick={createProduct} className="btn" color="primary">
             Thêm Danh Mục
           </Button>
-
+          <Button onClick={() => setOpen(false)} outline color="danger">
+            Close
+          </Button>
         </ModalBody>
       </Modal>
-      <Modal isOpen={openDelete} toggle={() => setOpenDelete(false)}>
+      <Modal isOpen={openDelete} toggle={() => { setOpen(false); if (!open) setName(""); }}>
         <ModalBody>
           <p>Delete Category?</p>
           <Button onClick={deleteCategory} className="btn" color="danger">
