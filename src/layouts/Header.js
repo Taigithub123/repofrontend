@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Navbar,
   Collapse,
@@ -13,6 +13,11 @@ import {
   Dropdown,
   Button,
 } from "reactstrap";
+import {
+  AuthDispatchContext,
+  signOut,
+} from "../contexts/auth";
+
 import Logo from "./Logo";
 import images from "../assets/images/logos/images.png";
 import user1 from "../assets/images/users/user4.jpg";
@@ -25,6 +30,12 @@ const Header = () => {
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   const Handletoggle = () => {
     setIsOpen(!isOpen);
+  };
+  const navigate = useNavigate();
+  const authDispatch = useContext(AuthDispatchContext);
+  const handleLogout = () => {
+    signOut(authDispatch);
+    navigate("/auth/login");
   };
   const showMobilemenu = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
@@ -78,7 +89,7 @@ const Header = () => {
             <DropdownItem divider />
             <DropdownItem>My Balance</DropdownItem>
             <DropdownItem>Inbox</DropdownItem>
-            <DropdownItem>Logout</DropdownItem>
+            <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </Collapse>
