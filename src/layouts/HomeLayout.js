@@ -18,6 +18,7 @@ import {
   Dropdown,
   Button,
   Badge,
+  Card
 } from "reactstrap";
 import { Outlet } from "react-router-dom";
 import Bookingdrink from "../assets/images/logos/bookingdrink.png";
@@ -70,6 +71,7 @@ export default function HomeLayout() {
   return (
     <div>
       <Navbar
+
         color="white"
         light
         expand="md"
@@ -110,7 +112,7 @@ export default function HomeLayout() {
           </Button>
         </div>
 
-        <Collapse navbar isOpen={isOpen}>
+        <Collapse navbar isOpen={isOpen} >
           <Nav className="me-auto" navbar>
             <UncontrolledDropdown inNavbar nav>
               <DropdownToggle caret nav>
@@ -206,7 +208,11 @@ export default function HomeLayout() {
           )}
         </Collapse>
       </Navbar>
-      <Outlet />
+      <div >
+        <Card >
+          <Outlet />
+        </Card>
+      </div>
     </div>
   );
 }

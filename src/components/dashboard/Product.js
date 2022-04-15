@@ -20,7 +20,7 @@ const Product = (props) => {
   const truncate = (input) =>
     input.length > 20 ? `${input.substring(0, 20)}...` : input;
   return (
-    <Card>
+    <Card style={{ border: "2px #DDDDDD solid" }}>
       <CardImg
         onClick={() => props.openModal(props.id)}
         alt="Card image cap"

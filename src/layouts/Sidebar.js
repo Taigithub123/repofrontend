@@ -19,7 +19,7 @@ const navigation = [
   },
   {
     title: "Đơn hàng",
-    href: "/order",
+    href: "order",
     icon: "bi bi-hdd-stack",
   },
   {

@@ -15,7 +15,7 @@ const ProductDetail = lazy(() => import("../views/home/ProductDetail.js"));
 const Category = lazy(() => import("../views/Category.js"));
 const Login = lazy(() => import("../views/Login"));
 const Register = lazy(() => import("../views/Register"));
-
+const Orderdrink = lazy(() => import("../views/Orderdrink.js"));
 /*****Routes******/
 
 const ThemeRoutes = [
@@ -43,6 +43,7 @@ const ThemeRoutes = [
       { path: "product", exact: true, element: <Product /> },
       { path: "product/add", exact: true, element: <ProductAdd /> },
       { path: "category", exact: true, element: <Category /> },
+      { path: "order", exact: true, element: <Orderdrink /> },
     ],
   },
 ];
