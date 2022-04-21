@@ -121,7 +121,6 @@ const ProductTables = () => {
         <Modal isOpen={open} toggle={() => setOpen(false)}>
           <ModalBody>
             <ProductAdd onClose={onClose} product={currentProduct} />
-
           </ModalBody>
         </Modal>
       </div>

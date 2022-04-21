@@ -47,7 +47,7 @@ const Home = () => {
           style={{
             marginTop: "80px",
             marginLeft: "15px",
-            width: "16%",
+            width: "14%",
             float: "left",
             position: "fixed",
             zIndex: "100",

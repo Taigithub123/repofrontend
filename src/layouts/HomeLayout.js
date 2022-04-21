@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import {
   CartStateContext,
   CartDispatchContext,
   toggleCartPopup,
-} from "../contexts/cart.js";
+} from "../contexts/cart";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Navbar,
   Collapse,
@@ -18,20 +18,18 @@ import {
   Dropdown,
   Button,
   Badge,
-  Card
 } from "reactstrap";
 import { Outlet } from "react-router-dom";
 import Bookingdrink from "../assets/images/logos/bookingdrink.png";
 import user1 from "../assets/images/users/user4.jpg";
 import axios from "axios";
 import { ImCart } from "react-icons/im";
-import CartPreview from "../components/CartPreview.js";
+import CartPreview from "../components/CartPreview";
 import {
   AuthDispatchContext,
   AuthStateContext,
   signOut,
 } from "../contexts/auth";
-
 export default function HomeLayout() {
   const [category, setCategory] = useState([]);
   useEffect(() => {
@@ -52,12 +50,10 @@ export default function HomeLayout() {
   const showMobilemenu = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
+
   const { items: cartItems, isCartOpen } = useContext(CartStateContext);
   const cartDispatch = useContext(CartDispatchContext);
   const cartQuantity = cartItems.length;
-  // const cartTotal = cartItems
-  //   .map((item) => item.price * item.quantity)
-  //   .reduce((prev, current) => prev + current, 0);
 
   const { isLoggedIn, user, isLoggingIn } = useContext(AuthStateContext);
   console.log(isLoggedIn, user, isLoggingIn);
@@ -71,7 +67,6 @@ export default function HomeLayout() {
   return (
     <div>
       <Navbar
-
         color="white"
         light
         expand="md"
@@ -80,11 +75,13 @@ export default function HomeLayout() {
       >
         <div className="d-flex align-items-center">
           <div className="d-lg-block d-none me-5 pe-3">
-            <img
-              style={{ width: "150px", height: "50px" }}
-              src={Bookingdrink}
-              alt="logo-w"
-            ></img>
+            <Link to={"/"}>
+              <img
+                style={{ width: "150px", height: "50px" }}
+                src={Bookingdrink}
+                alt="logo-w"
+              ></img>
+            </Link>
           </div>
           <NavbarBrand href="/">
             <img src={Bookingdrink} className="d-lg-none" alt="logo-w" />
@@ -112,7 +109,7 @@ export default function HomeLayout() {
           </Button>
         </div>
 
-        <Collapse navbar isOpen={isOpen} >
+        <Collapse navbar isOpen={isOpen}>
           <Nav className="me-auto" navbar>
             <UncontrolledDropdown inNavbar nav>
               <DropdownToggle caret nav>
@@ -126,7 +123,7 @@ export default function HomeLayout() {
             </UncontrolledDropdown>
             <NavItem>
               <Link to="/starter" className="nav-link">
-                Về Chúng Tôi
+                Giới Thiệu
               </Link>
             </NavItem>
             <NavItem>
@@ -135,7 +132,7 @@ export default function HomeLayout() {
               </Link>
             </NavItem>
             <NavItem>
-              <Link to="" className="nav-link">
+              <div className="nav-link">
                 <div className="cart-icon">
                   <Dropdown
                     tag="a"
@@ -169,11 +166,11 @@ export default function HomeLayout() {
                     <DropdownMenu
                       style={{ left: "-287px", width: "348px", top: "45px" }}
                     >
-                      <CartPreview />
+                      <CartPreview showCheckout />
                     </DropdownMenu>
                   </Dropdown>
                 </div>
-              </Link>
+              </div>
             </NavItem>
           </Nav>
           {user ? (
@@ -188,7 +185,7 @@ export default function HomeLayout() {
               </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem header>Info</DropdownItem>
-                <DropdownItem>My Account</DropdownItem>
+                {/* <DropdownItem>My Account</DropdownItem> */}
                 <DropdownItem>Edit Profile</DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem>My Balance</DropdownItem>
@@ -208,11 +205,7 @@ export default function HomeLayout() {
           )}
         </Collapse>
       </Navbar>
-      <div >
-        <Card >
-          <Outlet />
-        </Card>
-      </div>
+      <Outlet />
     </div>
   );
 }

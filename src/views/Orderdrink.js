@@ -18,7 +18,13 @@ function Orderdrink() {
   // const [status, setStatus]=useState({
   const [show, setShow] = useState(false);
   // })
-
+  const [madonhang, setMadonhang] = useState("2376427");
+  const [name, setName] = useState("2376427");
+  const [categorys, setCategorys] = useState("2376427");
+  const [price, setPrice] = useState("2376427");
+  const [address, setAddress] = useState("2376427");
+  const [email, setEmail] = useState("2376427");
+  const [phone, setPhone] = useState("2376427");
   return (
     <>
       <div>
@@ -98,16 +104,71 @@ function Orderdrink() {
               </Button>
             </ModalBody>
           </Modal>
-          <Modal isOpen={show} toggle={() => setShow(false)} style={{ paddingTop: "20%" }}>
+          <Modal isOpen={show} toggle={() => setShow(false)} >
             <ModalBody>
               <FormGroup>
-                <Label for="productCategory">Trạng thái</Label>
+                <Label for="productCategory">Mã đơn hàng</Label>
                 < Input
-                  type="select"
+                  value={madonhang}
+                  onChange={(e) => setMadonhang(e.target.value)}
                 >
-                  <option >Chờ giao hàng</option>
-                  <option >Đang giao hàng</option>
-                  <option >Đã giao hàng</option>
+                  42782
+                </ Input>
+              </FormGroup>
+              <FormGroup>
+                <Label for="productCategory">Tên khách hàng</Label>
+                < Input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                >
+                  Tài
+                </ Input>
+              </FormGroup>
+              <FormGroup>
+                <Label for="productCategory">loại thanh toán</Label>
+                < Input
+                  value={categorys}
+                  onChange={(e) => setCategorys(e.target.value)}
+                >
+                  Nhận hàng khi thanh toán
+                </ Input>
+              </FormGroup>
+              <FormGroup>
+                <Label for="productCategory">Tổng tiền</Label>
+                < Input
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                >
+                  sfsdf
+                </ Input>
+              </FormGroup>
+              <FormGroup>
+                <Label for="productCategory">Địa chỉ</Label>
+                < Input
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                >
+                  Ghềnh ráng
+                </ Input>
+              </FormGroup>
+              <FormGroup>
+                <Label for="productCategory">Email</Label>
+                < Input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+
+                >
+                  tai@gmail.com
+                </ Input>
+              </FormGroup>
+              <FormGroup>
+                <Label for="productCategory">Số địa thoại</Label>
+                < Input
+                  value={phone}
+
+                  onChange={(e) => setPhone(e.target.value)}
+                >
+                  238787634
                 </ Input>
               </FormGroup>
               <Button onClick={() => setShow(false)} outline color="danger">

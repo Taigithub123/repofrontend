@@ -76,7 +76,7 @@ const ProductAdd = (props) => {
         <Card>
           <CardTitle tag="h6" className="border-bottom p-3 mb-0">
             <i className="bi bi-bell me-2"> </i>
-            Nhập sả phẩm
+            Nhập sản phẩm
           </CardTitle>
           <CardBody>
             <Form onSubmit={handleSubmit}>

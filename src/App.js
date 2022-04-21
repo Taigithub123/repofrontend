@@ -12,9 +12,7 @@ const App = () => {
     request.headers.common.Authorization = `Bearer ${user?.token}`;
     return request;
   });
-
   const routing = useRoutes(Themeroutes);
-
   return (
     <AuthProvider>
       <CartProvider>

@@ -1,5 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import {
   Card,
   CardBody,
@@ -21,6 +24,7 @@ function Category() {
   const [name, setName] = useState("");
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const notify = () => toast("Thêm thành công!");
   const getCategory = async () => {
     const { data } = await axios.get("/api/category");
     setCategory(data);
@@ -28,18 +32,25 @@ function Category() {
   useEffect(() => {
     getCategory();
   }, []);
+  const hanlde = () => {
+    setEditId(null);
+    setOpen(false);
+
+  }
+
   const createProduct = async () => {
     if (editId) {
       const { data } = await axios.put("/api/category/" + editId, {
         name: name,
       });
 
+
     } else {
       const { data } = await axios.post("/api/category", { name: name });
       console.log(data);
 
     }
-
+    notify();
     setOpen(false);
     getCategory();
   };
@@ -113,10 +124,11 @@ function Category() {
           </Table>
         </CardBody>
       </Card>
-
-      <Modal isOpen={open} toggle={() => setOpen(false)}>
+      <ToastContainer />
+      <Modal isOpen={open} onClosed={hanlde} >
         <ModalBody>
           <FormGroup>
+
             <Label for="categoryName">Name</Label>
             <Input
               id="categoryName"
