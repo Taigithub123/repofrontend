@@ -35,7 +35,6 @@ function Category() {
   const hanlde = () => {
     setEditId(null);
     setOpen(false);
-
   }
 
   const createProduct = async () => {
