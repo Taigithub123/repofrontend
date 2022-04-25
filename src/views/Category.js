@@ -24,7 +24,7 @@ function Category() {
   const [name, setName] = useState("");
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const notify = () => toast("Thêm thành công!");
+  const notify = () => toast("Thành công!");
   const getCategory = async () => {
     const { data } = await axios.get("/api/category");
     setCategory(data);
@@ -77,7 +77,7 @@ function Category() {
             className="btn"
             color="primary"
           >
-            Thêm Danh Mục
+            Thêm
           </Button>
           <Table className="no-wrap mt-3 align-middle" responsive borderless>
             <thead>
@@ -141,7 +141,7 @@ function Category() {
             />
           </FormGroup>
           <Button onClick={createProduct} className="btn" color="primary">
-            Thêm Danh Mục
+            Enter
           </Button>
           <Button onClick={() => setOpen(false)} outline color="danger">
             Close

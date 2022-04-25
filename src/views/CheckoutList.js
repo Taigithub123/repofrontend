@@ -7,6 +7,10 @@ import {
   ModalBody,
   ModalHeader,
   ModalFooter,
+  Breadcrumb, BreadcrumbItem,
+  CardSubtitle,
+  CardTitle,
+
 } from "reactstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -43,6 +47,17 @@ export default function CheckoutList() {
     <div>
       <Card>
         <CardBody>
+          <CardTitle tag="h5">Danh Sách Đơn Hàng</CardTitle>
+          <div className="d-flex">
+            <CardSubtitle className="mb-2 text-muted me-auto" tag="h6">
+              Tất cả đơn hàng
+            </CardSubtitle>
+            <Breadcrumb >
+              <BreadcrumbItem><a href="/admin">Dashboard</a></BreadcrumbItem>
+              <BreadcrumbItem active>Bill</BreadcrumbItem>
+            </Breadcrumb>
+          </div>
+
           <Table className="no-wrap mt-3 align-middle" responsive borderless>
             <thead>
               <tr>
@@ -50,7 +65,6 @@ export default function CheckoutList() {
                 <th>Người dùng</th>
                 <th>Địa chỉ</th>
                 <th>Tổng tiền</th>
-                <th>Ngày tạo</th>
                 <th>Thao tác</th>
               </tr>
             </thead>
@@ -64,7 +78,7 @@ export default function CheckoutList() {
                   <td>{`${c.address}, ${c.commune}, ${c.district}, ${c.province}`}</td>
                   {/* <td>{c.phone}</td> */}
                   <td>{c.totalPrice}.000₫</td>
-                  <td>{c.createdAt}</td>
+                  {/* <td>{c.createdAt}</td> */}
                   <td>
                     <Button onClick={() => handleOpenDetail(c)} color="primary">
                       <HiEye />
@@ -74,6 +88,7 @@ export default function CheckoutList() {
               ))}
             </tbody>
           </Table>
+
         </CardBody>
       </Card>
       <Modal
@@ -119,14 +134,21 @@ export default function CheckoutList() {
                   .000₫
                 </p>
               )}
-
+              <p>
+                <strong>Tên người dùng: </strong>
+                {item.user.username}
+              </p>
               <p>
                 <strong>Địa Chỉ: </strong>
                 {`${item.address}, ${item.commune}, ${item.district}, ${item.province}`}
               </p>
               <p>
-                <strong>SĐT:</strong>
+                <strong>SĐT: </strong>
                 {item.phone}
+              </p>
+              <p>
+                <strong>Ngày tạo: </strong>
+                {item.createdAt}
               </p>
             </div>
           )}

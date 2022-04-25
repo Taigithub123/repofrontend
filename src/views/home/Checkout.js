@@ -91,7 +91,7 @@ const Checkout = () => {
                   <Label for="address">Địa Chỉ</Label>
                   <Input
                     name="address"
-                    placeholder="Nhập số nhà của bạn"
+                    placeholder="Nhập địa chỉ"
                     type="text"
                     id="address"
                     onChange={(e) =>
@@ -104,49 +104,50 @@ const Checkout = () => {
                   <Label for="exampleSelect">Tỉnh</Label>
                   <Input
                     name="province"
-                    type="select"
+                    placeholder="Nhập tỉnh"
+                    type="text"
                     onChange={(e) =>
                       setFormData({ ...formData, province: e.target.value })
                     }
                     value={formData.province}
                   >
-                    <option>--Chọn tỉnh--</option>
-                    <option>Dak Lak</option>
+                   
                   </Input>
                 </FormGroup>
                 <FormGroup>
-                  <Label for="exampleSelect">Huyện</Label>
+                  <Label for="exampleSelect">Thành phố</Label>
                   <Input
                     name="district"
-                    type="select"
+                    placeholder="Nhập thành phố"
+                    type="text"
                     onChange={(e) =>
                       setFormData({ ...formData, district: e.target.value })
                     }
                     value={formData.district}
                   >
-                    <option>--Chọn thành phố-</option>
-                    <option>BMT</option>
+                  
                   </Input>
                 </FormGroup>
 
                 <FormGroup>
-                  <Label for="exampleSelect">Xã</Label>
+                  <Label for="exampleSelect">Phường</Label>
                   <Input
                     name="commune"
-                    type="select"
+                    type="text"
+                    placeholder="Nhập phường"
                     onChange={(e) =>
                       setFormData({ ...formData, commune: e.target.value })
                     }
                     value={formData.commune}
                   >
-                    <option>--Chọn phường, xã--</option>
-                    <option>EaTam</option>
+                    
                   </Input>
                 </FormGroup>
                 <FormGroup>
                   <Label for="exampleText">Số Điện Thoại</Label>
                   <Input
                     name="phone"
+                    placeholder="Nhập số điện thoại"
                     type="text"
                     onChange={(e) =>
                       setFormData({ ...formData, phone: e.target.value })
