@@ -75,7 +75,7 @@ export default function CheckoutList() {
                     {c.id}-{c.checkoutId}
                   </td>
                   <td>{c.user.username}</td>
-                  <td>{`${c.address}, ${c.commune}, ${c.district}, ${c.province}`}</td>
+                  <td>{`${c.address}`}</td>
                   {/* <td>{c.phone}</td> */}
                   <td>{c.totalPrice}.000₫</td>
                   {/* <td>{c.createdAt}</td> */}
@@ -83,6 +83,7 @@ export default function CheckoutList() {
                     <Button onClick={() => handleOpenDetail(c)} color="primary">
                       <HiEye />
                     </Button>
+
                   </td>
                 </tr>
               ))}
@@ -105,7 +106,7 @@ export default function CheckoutList() {
           Chi tiết đơn hàng
         </ModalHeader>
         <ModalBody>
-          <Table borderless>
+          <Table borderless striped>
             <thead>
               <tr>
                 <th>Tên Sản Phẩm</th>
@@ -140,7 +141,7 @@ export default function CheckoutList() {
               </p>
               <p>
                 <strong>Địa Chỉ: </strong>
-                {`${item.address}, ${item.commune}, ${item.district}, ${item.province}`}
+                {`${item.address}`}
               </p>
               <p>
                 <strong>SĐT: </strong>

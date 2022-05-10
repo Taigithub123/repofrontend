@@ -21,17 +21,25 @@ export default function ProductDetail(props) {
     const { data } = await axios.get("/api/products/" + id);
     setProduct(data);
   };
+  const dispatch = useContext(CartDispatchContext);
+  const handleAddToCart = () => {
+    // console.log("__product__", product);
+    const productItem = {
+      props: {
+        id: product.id,
+        image: "/upload/" + product.image,
+        title: product.title,
+        subtitle: product.description,
+        text: product.price,
+      },
+      quantity: 1,
+    };
+    addToCart(dispatch, productItem);
+  };
   useEffect(() => {
     fetchData();
   }, []);
   console.log(product);
-
-  const dispatch = useContext(CartDispatchContext);
-  function handleClick() {
-    const product = { props, quantity: 1 };
-    addToCart(dispatch, product);
-
-  };
 
 
   return (
@@ -56,7 +64,7 @@ export default function ProductDetail(props) {
                 <CardText>Mô tả: {product.description}</CardText>
                 <CardText>Giá Tiền: {product.price}</CardText>
                 <Button color="success"
-                  outline onClick={handleClick} >Thêm Vào Giỏ</Button>
+                  outline onClick={handleAddToCart} >Thêm Vào Giỏ</Button>
               </CardBody>
             </Col>
           </Row>

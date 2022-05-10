@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
+
 import {
   Card,
   CardBody,
@@ -18,6 +19,8 @@ import {
   ModalFooter,
 } from "reactstrap";
 import CardPreview from "../../components/CartPreview";
+import { useNavigate } from "react-router-dom";
+
 import { AuthStateContext } from "../../contexts/auth";
 import {
   CartDispatchContext,
@@ -25,6 +28,7 @@ import {
   clearCart,
 } from "../../contexts/cart";
 const Checkout = () => {
+  const navigate = useNavigate();
   let userId;
   const checkoutDetailArr = [];
   const [isOpen, setIsOpen] = useState(false);
@@ -33,6 +37,11 @@ const Checkout = () => {
   if (isLoggedIn) {
     userId = user.id;
   }
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/auth/login");
+    }
+  }, [isLoggedIn, navigate]);
   const { items: cartItems } = useContext(CartStateContext);
   const dispatch = useContext(CartDispatchContext);
   const cartTotal = cartItems
@@ -100,7 +109,7 @@ const Checkout = () => {
                     value={formData.address}
                   />
                 </FormGroup>
-                <FormGroup>
+                {/* <FormGroup>
                   <Label for="exampleSelect">Tỉnh</Label>
                   <Input
                     name="province"
@@ -111,7 +120,7 @@ const Checkout = () => {
                     }
                     value={formData.province}
                   >
-                   
+                   <>phú yên</>
                   </Input>
                 </FormGroup>
                 <FormGroup>
@@ -142,7 +151,7 @@ const Checkout = () => {
                   >
                     
                   </Input>
-                </FormGroup>
+                </FormGroup> */}
                 <FormGroup>
                   <Label for="exampleText">Số Điện Thoại</Label>
                   <Input
